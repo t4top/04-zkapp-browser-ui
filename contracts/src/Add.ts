@@ -1,4 +1,11 @@
-import { Field, SmartContract, state, State, method } from 'snarkyjs';
+import {
+  Field,
+  SmartContract,
+  state,
+  State,
+  method,
+  Permissions,
+} from 'snarkyjs';
 
 /**
  * Basic Example
@@ -14,6 +21,10 @@ export class Add extends SmartContract {
 
   init() {
     super.init();
+    this.setPermissions({
+      ...Permissions.default(),
+      editState: Permissions.proofOrSignature(),
+    });
     this.num.set(Field(1));
   }
 
